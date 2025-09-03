@@ -137,7 +137,7 @@ void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {
 
 class RetroEffectImpl extends Effect {
   private _uniforms: Map<string, THREE.Uniform>;
-  
+
   constructor() {
     const uniforms = new Map([
       ["colorNum", new THREE.Uniform(4.0)],
@@ -167,10 +167,12 @@ interface RetroEffectProps {
   pixelSize: number;
 }
 
-const RetroEffect = forwardRef<any, RetroEffectProps>((props, ref) => {
-  const { colorNum, pixelSize } = props;
-  return <WrappedRetro ref={ref} colorNum={colorNum} pixelSize={pixelSize} />;
-});
+const RetroEffect = forwardRef<RetroEffectImpl, RetroEffectProps>(
+  (props, ref) => {
+    const { colorNum, pixelSize } = props;
+    return <WrappedRetro ref={ref} colorNum={colorNum} pixelSize={pixelSize} />;
+  }
+);
 RetroEffect.displayName = "RetroEffect";
 
 function DitheredWaves({
@@ -308,8 +310,8 @@ export default function Dither({
   enableMouseInteraction = true,
   mouseRadius = 1,
 }: DitherProps) {
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
-  
+  const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+
   return (
     <Canvas
       className={styles.ditherContainer}
